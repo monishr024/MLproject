@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Performance AI</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+</head>
+
+<body>
+
+    <!-- Animated Background -->
+
+    <div class="background">
+
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+
+    </div>
+
+    <!-- Navbar -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+
+            <i class="fa-solid fa-brain"></i>
+
+            StudentAI
+
+        </div>
+
+        <ul>
+
+            <li><a href="/">Home</a></li>
+
+            <li><a href="#features">Features</a></li>
+
+            <li><a href="#about">About</a></li>
+
+        </ul>
+
+    </nav>
+
+    <!-- Hero -->
+
+    <section class="hero">
+
+        <div class="glass-card">
+
+            <h1>
+
+                Student Performance Prediction
+
+            </h1>
+
+            <h2>
+
+                Powered by Artificial Intelligence
+
+            </h2>
+
+            <p>
+
+                Predict a student's Mathematics Score using advanced Machine Learning models trained on academic performance data.
+
+            </p>
+
+            <a href="{{ url_for('predict_datapoint') }}" class="start-btn">
+
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+                Start Prediction
+
+            </a>
+
+        </div>
+
+    </section>
+
+    <!-- Features -->
+
+    <section class="features" id="features">
+
+        <div class="feature-card">
+
+            <i class="fa-solid fa-robot"></i>
+
+            <h3>AI Powered</h3>
+
+            <p>
+
+                Predicts mathematics scores using ensemble Machine Learning models.
+
+            </p>
+
+        </div>
+
+        <div class="feature-card">
+
+            <i class="fa-solid fa-chart-line"></i>
+
+            <h3>High Accuracy</h3>
+
+            <p>
+
+                Optimized using multiple regression algorithms for excellent prediction performance.
+
+            </p>
+
+        </div>
+
+        <div class="feature-card">
+
+            <i class="fa-solid fa-gauge-high"></i>
+
+            <h3>Instant Prediction</h3>
+
+            <p>
+
+                Get prediction results instantly from your browser.
+
+            </p>
+
+        </div>
+
+        <div class="feature-card">
+
+            <i class="fa-solid fa-shield-halved"></i>
+
+            <h3>Reliable</h3>
+
+            <p>
+
+                Clean preprocessing pipeline with feature engineering and trained models.
+
+            </p>
+
+        </div>
+
+    </section>
+
+    <!-- About -->
+
+    <section class="about" id="about">
+
+        <div class="glass-card small">
+
+            <h2>Built with Modern AI Technologies</h2>
+
+            <div class="tech-stack">
+
+                <span>Python</span>
+
+                <span>Flask</span>
+
+                <span>Scikit-Learn</span>
+
+                <span>CatBoost</span>
+
+                <span>XGBoost</span>
+
+                <span>Pandas</span>
+
+                <span>NumPy</span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Footer -->
+
+    <footer>
+
+        <p>
+
+            Developed by <strong>Monish R</strong>
+
+        </p>
+
+    </footer>
+
+</body>
+
+</html>

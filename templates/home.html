@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Performance AI Dashboard</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+</head>
+
+<body>
+
+    <div class="background">
+
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+
+    </div>
+
+    <!-- Navbar -->
+
+   <nav class="topbar">
+
+    <div class="logo">
+
+        <i class="fa-solid fa-brain"></i>
+
+        StudentAI
+
+    </div>
+
+    <div class="topbar-right">
+
+        <div class="status">
+
+            <span class="dot"></span>
+
+            AI Online
+
+        </div>
+
+        <button class="theme-btn">
+
+            <i class="fa-solid fa-moon"></i>
+
+        </button>
+
+        <a href="/">
+
+            <i class="fa-solid fa-house"></i>
+
+        </a>
+
+    </div>
+
+</nav>
+    <section class="top-cards">
+
+    <div class="top-card">
+
+        <i class="fa-solid fa-brain"></i>
+
+        <div>
+
+            <h2>AI Model</h2>
+
+            <p>CatBoost + XGBoost</p>
+
+        </div>
+
+    </div>
+
+    <div class="top-card">
+
+        <i class="fa-solid fa-chart-line"></i>
+
+        <div>
+
+            <h2>Accuracy</h2>
+
+            <p>R² Score : 0.88</p>
+
+        </div>
+
+    </div>
+
+    <div class="top-card">
+
+        <i class="fa-solid fa-clock"></i>
+
+        <div>
+
+            <h2>Prediction</h2>
+
+            <p>Real Time</p>
+
+        </div>
+
+    </div>
+
+    <div class="top-card">
+
+        <i class="fa-solid fa-database"></i>
+
+        <div>
+
+            <h2>Dataset</h2>
+
+            <p>1000 Students</p>
+
+        </div>
+
+    </div>
+
+</section>
+
+    <section class="dashboard">
+
+        <!-- LEFT PANEL -->
+
+        <div class="dashboard-card">
+
+            <div class="section-title">
+
+                <i class="fa-solid fa-user-graduate"></i>
+
+                Student Information
+
+            </div>
+
+            <form action="{{ url_for('predict_datapoint') }}" method="POST">
+
+                <div class="form-grid">
+
+                    <div class="input-group">
+
+                        <label>Gender</label>
+
+                        <select name="gender" required>
+
+                            <option disabled selected>Select Gender</option>
+
+                            <option value="male">Male</option>
+
+                            <option value="female">Female</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label>Race / Ethnicity</label>
+
+                        <select name="ethnicity" required>
+
+                            <option disabled selected>Select Group</option>
+
+                            <option value="group A">Group A</option>
+                            <option value="group B">Group B</option>
+                            <option value="group C">Group C</option>
+                            <option value="group D">Group D</option>
+                            <option value="group E">Group E</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label>Parent Education</label>
+
+                        <select name="parental_level_of_education" required>
+
+                            <option disabled selected>Select</option>
+
+                            <option value="associate's degree">Associate's Degree</option>
+                            <option value="bachelor's degree">Bachelor's Degree</option>
+                            <option value="high school">High School</option>
+                            <option value="master's degree">Master's Degree</option>
+                            <option value="some college">Some College</option>
+                            <option value="some high school">Some High School</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label>Lunch</label>
+
+                        <select name="lunch" required>
+
+                            <option disabled selected>Select</option>
+
+                            <option value="standard">Standard</option>
+
+                            <option value="free/reduced">Free / Reduced</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label>Test Preparation</label>
+
+                        <select name="test_preparation_course" required>
+
+                            <option disabled selected>Select</option>
+
+                            <option value="completed">Completed</option>
+
+                            <option value="none">None</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label>Reading Score</label>
+
+                        <input type="number"
+                            min="0"
+                            max="100"
+                            name="reading_score"
+                            required>
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label>Writing Score</label>
+
+                        <input type="number"
+                            min="0"
+                            max="100"
+                            name="writing_score"
+                            required>
+
+                    </div>
+
+                </div>
+
+               <button class="predict-btn">
+
+                <i class="fa-solid fa-sparkles"></i>
+
+                Generate AI Prediction
+
+               </button>
+
+            </form>
+
+        </div>
+
+        <!-- RIGHT PANEL -->
+
+        <div class="dashboard-card prediction-panel" id="prediction">
+
+            <h2>
+
+                <i class="fa-solid fa-chart-simple"></i>
+
+                AI Prediction
+
+            </h2>
+
+  <div class="gauge-container">
+
+    <canvas id="scoreChart"></canvas>
+
+    <div class="score-text">
+
+        {% if results %}
+            {{ "%.1f"|format(results) }}
+        {% else %}
+            --
+        {% endif %}
+
+    </div>
+
+</div>
+
+<div class="confidence">
+
+    <span>AI Confidence</span>
+
+    <div class="confidence-bar">
+
+        <div class="confidence-fill"></div>
+
+    </div>
+
+    <small>High Confidence Prediction</small>
+
+</div>
+
+            {% if results %}
+
+            <div class="prediction-status">
+
+                {% if results >= 90 %}
+                🌟 Outstanding Performance
+
+                {% elif results >= 75 %}
+                🎉 Excellent Performance
+
+                {% elif results >= 60 %}
+                👍 Good Performance
+
+                {% elif results >= 40 %}
+                📘 Average Performance
+
+                {% else %}
+                📚 Needs Improvement
+                {% endif %}
+
+            </div>
+
+            <div class="progress">
+
+                <div class="progress-fill"
+                    style="width: {{ results }}%;"></div>
+
+            </div>
+
+ <div class="insight-card">
+
+    <h3>
+
+        <i class="fa-solid fa-lightbulb"></i>
+
+        AI Insight
+
+    </h3>
+
+    {% if results %}
+
+    {% if results >= 90 %}
+
+    <p>
+
+        This student demonstrates exceptional academic performance.
+        Continue advanced learning and competitive preparation.
+
+    </p>
+
+    {% elif results >= 75 %}
+
+    <p>
+
+        Strong academic performance.
+        With regular practice, the student can achieve excellent results.
+
+    </p>
+
+    {% elif results >= 60 %}
+
+    <p>
+
+        The student has a solid foundation.
+        More revision and practice will significantly improve performance.
+
+    </p>
+
+    {% else %}
+
+    <p>
+
+        Additional study and guided practice are recommended
+        to strengthen mathematics performance.
+
+    </p>
+
+    {% endif %}
+
+    {% endif %}
+
+</div>
+
+            {% else %}
+
+            <div class="prediction-status">
+
+                Fill in the form to generate an AI prediction.
+
+            </div>
+
+            {% endif %}
+
+            <div class="stats">
+
+                <div class="stat-box">
+
+                    <i class="fa-solid fa-brain"></i>
+
+                    <h3>AI Model</h3>
+
+                    <p>CatBoost / XGBoost</p>
+
+                </div>
+
+                <div class="stat-box">
+
+                    <i class="fa-solid fa-chart-line"></i>
+
+                    <h3>Accuracy</h3>
+
+                    <p>R² ≈ 0.88</p>
+
+                </div>
+
+                <div class="stat-box">
+
+                    <i class="fa-solid fa-bolt"></i>
+
+                    <h3>Speed</h3>
+
+                    <p>&lt; 1 Second</p>
+
+                </div>
+
+                <div class="stat-box">
+
+                    <i class="fa-solid fa-database"></i>
+
+                    <h3>Dataset</h3>
+
+                    <p>1000 Students</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+
+</html>
