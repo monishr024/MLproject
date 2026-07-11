@@ -8,4 +8,5 @@ requests
 scikit-learn  
 catboost
 xgboost
+dill
 -e .
