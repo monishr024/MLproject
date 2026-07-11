@@ -270,24 +270,23 @@ indicating strong predictive performance on the evaluation dataset.
 
 ---
 
-# 📸 Screenshots
+## 📸 Screenshots
 
-## Landing Page
+### 🏠 Landing Page
 
-> Add a screenshot here
-
----
-
-## Prediction Dashboard
-
-> Add a screenshot here
+![Landing Page](screenshots/landpage.png)
 
 ---
 
-## Prediction Result
+### 📋 Prediction Dashboard
 
-> Add a screenshot here
+![Prediction Dashboard](screenshots/prediction.png)
 
+---
+
+### 📊 Prediction Result
+
+![Prediction Result](screenshots/result.png)
 ---
 
 # 🚀 Future Improvements
